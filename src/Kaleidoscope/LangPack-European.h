@@ -48,7 +48,7 @@ enum {
   INTL_CEDILLA,
   INTL_SS,
   INTL_ENE,
-  INTL_LAST = INTL_YUMLAUT,
+  INTL_LAST = INTL_ENE,
 };
 
 #define INTL(n) (Key){.raw = kaleidoscope::language::INTL_ ## n}
