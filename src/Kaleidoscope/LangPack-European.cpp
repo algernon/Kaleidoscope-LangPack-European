@@ -19,31 +19,6 @@
 #include <Kaleidoscope-LangPack-European.h>
 #include <Kaleidoscope-OneShot.h>
 
-typedef enum {
-  AA,
-  AU,
-  AR,
-  AG,
-  OA,
-  OU,
-  ODA,
-  OG,
-  EA,
-  EU,
-  EG,
-  UA,
-  UU,
-  UDA,
-  UG,
-  IA,
-  IU,
-  IG,
-  YU,
-  CD,
-  SHS,
-  ENE,
-} EUSymbol;
-
 namespace kaleidoscope {
 namespace language {
 
@@ -67,102 +42,101 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
 
   tap_key(compose_key);
 
-  EUSymbol symbol = (EUSymbol)(mapped_key.raw - INTL_FIRST);
   Key accent;
   uint8_t kc = 0;
 
   accent.flags = KEY_FLAGS;
   accent.keyCode = Key_Quote.keyCode;
 
-  switch (symbol) {
-  case AA:
+  switch (mapped_key.raw) {
+  case INTL_AACUTE:
     kc = Key_A.keyCode;
     break;
-  case AU:
+  case INTL_AUMLAUT:
     kc = Key_A.keyCode;
     accent.flags |= SHIFT_HELD;
     break;
-  case AR:
+  case INTL_ARING:
     kc = Key_A.keyCode;
     accent = Key_O;
     break;
-  case AG:
+  case INTL_AGRAVE:
     kc = Key_A.keyCode;
     accent = Key_Backtick;
     break;
 
-  case OA:
+  case INTL_OACUTE:
     kc = Key_O.keyCode;
     break;
-  case OU:
+  case INTL_OUMLAUT:
     kc = Key_O.keyCode;
     accent.flags |= SHIFT_HELD;
     break;
-  case ODA:
+  case INTL_ODACUTE:
     kc = Key_O.keyCode;
     accent.raw = Key_Equals.raw;
     break;
-  case OG:
+  case INTL_OGRAVE:
     kc = Key_O.keyCode;
     accent = Key_Backtick;
     break;
 
-  case EA:
+  case INTL_EACUTE:
     kc = Key_E.keyCode;
     break;
-  case EU:
+  case INTL_EUMLAUT:
     kc = Key_E.keyCode;
     accent.flags |= SHIFT_HELD;
     break;
-  case EG:
+  case INTL_EGRAVE:
     kc = Key_E.keyCode;
     accent = Key_Backtick;
     break;
 
-  case UA:
+  case INTL_UACUTE:
     kc = Key_U.keyCode;
     break;
-  case UU:
+  case INTL_UUMLAUT:
     kc = Key_U.keyCode;
     accent.flags |= SHIFT_HELD;
     break;
-  case UDA:
+  case INTL_UDACUTE:
     kc = Key_U.keyCode;
     accent.raw = Key_Equals.raw;
     break;
-  case UG:
+  case INTL_UGRAVE:
     kc = Key_U.keyCode;
     accent = Key_Backtick;
     break;
 
-  case IA:
+  case INTL_IACUTE:
     kc = Key_I.keyCode;
     break;
-  case IU:
+  case INTL_IUMLAUT:
     kc = Key_I.keyCode;
     accent.flags |= SHIFT_HELD;
     break;
-  case IG:
+  case INTL_IGRAVE:
     kc = Key_I.keyCode;
     accent = Key_Backtick;
     break;
 
-  case YU:
+  case INTL_YUMLAUT:
     kc = Key_Y.keyCode;
     accent.flags |= SHIFT_HELD;
     break;
 
-  case CD:
+  case INTL_CEDILLA:
     kc = Key_C.keyCode;
     accent = Key_Period;
     break;
 
-  case SHS:
+  case INTL_SS:
     kc = Key_S.keyCode;
     accent = Key_S;
     break;
 
-  case ENE:
+  case INTL_ENE:
     kc = Key_N.keyCode;
     accent = Key_Backtick;
     accent.flags |= SHIFT_HELD;
