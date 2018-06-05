@@ -64,6 +64,10 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     kc = Key_A.keyCode;
     accent = Key_Backtick;
     break;
+  case INTL_AOGONEK:
+    kc = Key_A.keyCode;
+    accent = Key_Comma;
+    break;
 
   case INTL_OACUTE:
     kc = Key_O.keyCode;
@@ -80,6 +84,10 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     kc = Key_O.keyCode;
     accent = Key_Backtick;
     break;
+  case INTL_OOGONEK:
+    kc = Key_O.keyCode;
+    accent = Key_Comma;
+    break;
 
   case INTL_EACUTE:
     kc = Key_E.keyCode;
@@ -91,6 +99,10 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
   case INTL_EGRAVE:
     kc = Key_E.keyCode;
     accent = Key_Backtick;
+    break;
+  case INTL_EOGONEK:
+    kc = Key_E.keyCode;
+    accent = Key_Comma;
     break;
 
   case INTL_UACUTE:
@@ -108,6 +120,10 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     kc = Key_U.keyCode;
     accent = Key_Backtick;
     break;
+  case INTL_UOGONEK:
+    kc = Key_U.keyCode;
+    accent = Key_Comma;
+    break;
 
   case INTL_IACUTE:
     kc = Key_I.keyCode;
@@ -119,6 +135,10 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
   case INTL_IGRAVE:
     kc = Key_I.keyCode;
     accent = Key_Backtick;
+    break;
+  case INTL_IOGONEK:
+    kc = Key_I.keyCode;
+    accent = Key_Comma;
     break;
 
   case INTL_YUMLAUT:
