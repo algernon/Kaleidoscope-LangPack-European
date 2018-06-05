@@ -183,11 +183,9 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
 
   hid::sendKeyboardReport();
 
-  tap_key({kc, KEY_FLAGS});
+  mapped_key = {kc, KEY_FLAGS};
 
-  hid::sendKeyboardReport();
-
-  return EventHandlerResult::EVENT_CONSUMED;
+  return EventHandlerResult::OK;
 }
 
 // Legacy V1 API
