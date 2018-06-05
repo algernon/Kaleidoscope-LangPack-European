@@ -60,6 +60,12 @@ class European : public kaleidoscope::Plugin {
   Key compose_key = Key_RightAlt;
 
   EventHandlerResult onKeyswitchEvent(Key &mapped_key, byte row, byte col, uint8_t keyState);
+
+#if KALEIDOSCOPE_ENABLE_V1_PLUGIN_API
+ protected:
+  void begin();
+  static Key legacyEventHandler(Key mapped_key, byte row, byte col, uint8_t key_state);
+#endif
 };
 
 }
