@@ -48,9 +48,9 @@ namespace kaleidoscope {
 namespace language {
 
 static void tap_key(Key key) {
-  handleKeyswitchEvent(key, UNKNOWN_KEYSWITCH_LOCATION, IS_PRESSED | INJECTED);
+  hid::pressKey(key);
   hid::sendKeyboardReport();
-  handleKeyswitchEvent(key, UNKNOWN_KEYSWITCH_LOCATION, WAS_PRESSED | INJECTED);
+  hid::releaseKey(key);
   hid::sendKeyboardReport();
 }
 
@@ -62,7 +62,7 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     return EventHandlerResult::EVENT_CONSUMED;
   }
 
-  bool need_shift = hid::isModifierKeyActive(Key_LeftShift) ||
+  bool need_shift = hid::wasModifierKeyActive(Key_LeftShift) ||
                     ::OneShot.isModifierActive(Key_LeftShift);
 
   tap_key(compose_key);
@@ -170,23 +170,24 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
   }
 
   if (accent.flags & SHIFT_HELD)
-    handleKeyswitchEvent(Key_LeftShift, UNKNOWN_KEYSWITCH_LOCATION, IS_PRESSED | INJECTED);
+    hid::pressKey(Key_LeftShift);
   else
-    handleKeyswitchEvent(Key_LeftShift, UNKNOWN_KEYSWITCH_LOCATION, WAS_PRESSED | INJECTED);
-  hid::sendKeyboardReport();
+    hid::releaseKey(Key_LeftShift);
 
   tap_key(accent);
 
   if (need_shift)
-    handleKeyswitchEvent(Key_LeftShift, UNKNOWN_KEYSWITCH_LOCATION, IS_PRESSED | INJECTED);
+    hid::pressKey(Key_LeftShift);
   else
-    handleKeyswitchEvent(Key_LeftShift, UNKNOWN_KEYSWITCH_LOCATION, WAS_PRESSED | INJECTED);
-
-  mapped_key = kc;
+    hid::releaseKey(Key_LeftShift);
 
   hid::sendKeyboardReport();
 
-  return EventHandlerResult::OK;
+  tap_key({kc, KEY_FLAGS});
+
+  hid::sendKeyboardReport();
+
+  return EventHandlerResult::EVENT_CONSUMED;
 }
 
 // Legacy V1 API
