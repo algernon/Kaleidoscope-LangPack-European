@@ -69,6 +69,22 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     accent = Key_Comma;
     break;
 
+  case INTL_CACUTE:
+    kc = Key_C.keyCode;
+    break;
+
+  case INTL_NACUTE:
+    kc = Key_N.keyCode;
+    break;
+
+  case INTL_SACUTE:
+    kc = Key_S.keyCode;
+    break;
+
+  case INTL_ZACUTE:
+    kc = Key_Z.keyCode;
+    break;
+
   case INTL_OACUTE:
     kc = Key_O.keyCode;
     break;

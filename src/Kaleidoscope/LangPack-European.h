@@ -33,6 +33,7 @@ enum {
   INTL_AOGONEK,
   INTL_AUMLAUT,
 
+  INTL_CACUTE,
   INTL_CEDILLA,
 
   INTL_EACUTE,
@@ -45,6 +46,7 @@ enum {
   INTL_IOGONEK,
   INTL_IUMLAUT,
 
+  INTL_NACUTE,
   INTL_ENE,
 
   INTL_OACUTE,
@@ -53,6 +55,7 @@ enum {
   INTL_OOGONEK,
   INTL_OUMLAUT,
 
+  INTL_SACUTE,
   INTL_SS,
 
   INTL_UACUTE,
@@ -63,7 +66,9 @@ enum {
 
   INTL_YUMLAUT,
 
-  INTL_LAST = INTL_YUMLAUT,
+  INTL_ZACUTE,
+
+  INTL_LAST = INTL_ZACUTE,
 };
 
 #define INTL(n) (Key){.raw = kaleidoscope::language::INTL_ ## n}
