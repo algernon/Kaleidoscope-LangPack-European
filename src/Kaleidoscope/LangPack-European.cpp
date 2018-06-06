@@ -85,6 +85,16 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     kc = Key_Z.keyCode;
     break;
 
+  case INTL_LSTROKE:
+    kc = Key_L.keyCode;
+    accent = Key_Slash;
+    break;
+
+  case INTL_ZODOT:
+    kc = Key_Z.keyCode;
+    accent = Key_Period;
+    break;
+
   case INTL_OACUTE:
     kc = Key_O.keyCode;
     break;

@@ -12,7 +12,7 @@ used by selected European languages, on any operating system that support a
 `Compose` key. The package has been tested under X.org and Windows with
 `WinCompose`.
 
-Supported languages: French, German, Hungarian, Swedish.
+Supported languages: French, German, Hungarian, Polish, Swedish.
 
 ## Using the plugin
 
