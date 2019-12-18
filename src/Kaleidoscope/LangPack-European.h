@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Kaleidoscope-LangPack-European -- Support for select EU languages
- * Copyright (C) 2016, 2017, 2018  Gergely Nagy
+ * Copyright (C) 2016, 2017, 2018, 2019  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ enum {
   INTL_LAST = INTL_ZODOT,
 };
 
-#define INTL(n) (Key){.raw = kaleidoscope::language::INTL_ ## n}
+#define INTL(n) Key(kaleidoscope::language::INTL_ ## n}
 
 class European : public kaleidoscope::Plugin {
  public:
@@ -82,13 +82,7 @@ class European : public kaleidoscope::Plugin {
 
   Key compose_key = Key_RightAlt;
 
-  EventHandlerResult onKeyswitchEvent(Key &mapped_key, byte row, byte col, uint8_t keyState);
-
-#if KALEIDOSCOPE_ENABLE_V1_PLUGIN_API
- protected:
-  void begin();
-  static Key legacyEventHandler(Key mapped_key, byte row, byte col, uint8_t key_state);
-#endif
+  EventHandlerResult onKeyswitchEvent(Key &mapped_key, KeyAddr key_addr, uint8_t keyState);
 };
 
 }

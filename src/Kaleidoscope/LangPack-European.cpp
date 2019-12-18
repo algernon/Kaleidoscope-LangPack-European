@@ -1,6 +1,6 @@
 /* -*- mode: c++ -*-
  * Kaleidoscope-LangPack-European -- Support for select EU languages
- * Copyright (C) 2016, 2017, 2018  Gergely Nagy
+ * Copyright (C) 2016, 2017, 2018, 2019  Gergely Nagy
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,8 +29,8 @@ static void tap_key(Key key) {
   hid::sendKeyboardReport();
 }
 
-EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte col, uint8_t keyState) {
-  if (mapped_key.raw < INTL_FIRST || mapped_key.raw > INTL_LAST)
+EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, KeyAddr key_addr, uint8_t keyState) {
+  if (mapped_key.getRaw() < INTL_FIRST || mapped_key.getRaw() > INTL_LAST)
     return EventHandlerResult::OK;
 
   if (!keyToggledOn(keyState)) {
@@ -45,8 +45,8 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
   Key accent;
   uint8_t kc = 0;
 
-  accent.flags = KEY_FLAGS;
-  accent.keyCode = Key_Quote.keyCode;
+  accent.setFlags(KEY_FLAGS);
+  accent.setKeyCode(Key_Quote.getKeyCode());
 
   switch (mapped_key.raw) {
   case INTL_AACUTE:
@@ -54,7 +54,7 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     break;
   case INTL_AUMLAUT:
     kc = Key_A.keyCode;
-    accent.flags |= SHIFT_HELD;
+    accent.setFlags(accent.getFlags() | SHIFT_HELD);
     break;
   case INTL_ARING:
     kc = Key_A.keyCode;
@@ -100,11 +100,11 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     break;
   case INTL_OUMLAUT:
     kc = Key_O.keyCode;
-    accent.flags |= SHIFT_HELD;
+    accent.setFlags(accent.getFlags() | SHIFT_HELD);
     break;
   case INTL_ODACUTE:
     kc = Key_O.keyCode;
-    accent.raw = Key_Equals.raw;
+    accent = Key_Equals;
     break;
   case INTL_OGRAVE:
     kc = Key_O.keyCode;
@@ -120,7 +120,7 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     break;
   case INTL_EUMLAUT:
     kc = Key_E.keyCode;
-    accent.flags |= SHIFT_HELD;
+    accent.setFlags(accent.getFlags() | SHIFT_HELD);
     break;
   case INTL_EGRAVE:
     kc = Key_E.keyCode;
@@ -136,11 +136,11 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     break;
   case INTL_UUMLAUT:
     kc = Key_U.keyCode;
-    accent.flags |= SHIFT_HELD;
+    accent.setFlags(accent.getFlags() | SHIFT_HELD);
     break;
   case INTL_UDACUTE:
     kc = Key_U.keyCode;
-    accent.raw = Key_Equals.raw;
+    accent = Key_Equals;
     break;
   case INTL_UGRAVE:
     kc = Key_U.keyCode;
@@ -156,7 +156,7 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
     break;
   case INTL_IUMLAUT:
     kc = Key_I.keyCode;
-    accent.flags |= SHIFT_HELD;
+    accent.setFlags(accent.getFlags() | SHIFT_HELD);
     break;
   case INTL_IGRAVE:
     kc = Key_I.keyCode;
@@ -169,7 +169,7 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
 
   case INTL_YUMLAUT:
     kc = Key_Y.keyCode;
-    accent.flags |= SHIFT_HELD;
+    accent.setFlags(accent.getFlags() | SHIFT_HELD);
     break;
 
   case INTL_CEDILLA:
@@ -185,11 +185,11 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
   case INTL_ENE:
     kc = Key_N.keyCode;
     accent = Key_Backtick;
-    accent.flags |= SHIFT_HELD;
+    accent.setFlags(accent.getFlags() | SHIFT_HELD);
     break;
   }
 
-  if (accent.flags & SHIFT_HELD)
+  if (accent.getFlags() & SHIFT_HELD)
     hid::pressKey(Key_LeftShift);
   else
     hid::releaseKey(Key_LeftShift);
@@ -203,24 +203,10 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, byte row, byte co
 
   hid::sendKeyboardReport();
 
-  mapped_key = {kc, KEY_FLAGS};
+  mapped_key = Key(kc, KEY_FLAGS);
 
   return EventHandlerResult::OK;
 }
-
-// Legacy V1 API
-#if KALEIDOSCOPE_ENABLE_V1_PLUGIN_API
-void European::begin() {
-  Kaleidoscope.useEventHandlerHook(legacyEventHandler);
-}
-
-Key European::legacyEventHandler(Key mapped_key, byte row, byte col, uint8_t key_state) {
-  EventHandlerResult r = ::LangPack_EU.onKeyswitchEvent(mapped_key, row, col, key_state);
-  if (r == EventHandlerResult::OK)
-    return mapped_key;
-  return Key_NoKey;
-}
-#endif
 
 }
 }
