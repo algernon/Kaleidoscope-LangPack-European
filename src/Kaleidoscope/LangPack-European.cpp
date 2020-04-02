@@ -48,7 +48,7 @@ EventHandlerResult European::onKeyswitchEvent(Key &mapped_key, KeyAddr key_addr,
   accent.setFlags(KEY_FLAGS);
   accent.setKeyCode(Key_Quote.getKeyCode());
 
-  switch (mapped_key.raw) {
+  switch (mapped_key.getRaw()) {
   case INTL_AACUTE:
     kc = Key_A.keyCode;
     break;
